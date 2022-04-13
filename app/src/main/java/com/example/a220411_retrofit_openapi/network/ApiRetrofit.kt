@@ -15,7 +15,6 @@ interface ApiRetrofit {
         @Query("targetDt") targetDt: String?,
     ): Response<Result>
 
-
     @FormUrlEncoded
     @POST("actCheckSms")
     suspend fun onCheckSMS(
@@ -29,6 +28,8 @@ interface ApiRetrofit {
         "accept: application/json",
         "content-type: application/x-www-form-urlencoded; charset=utf-8"
     )
+
+
     //post로 서버에 데이터를 보내는 메서드
     suspend fun post_users(
         // 서버에 Post방식으로 보낼 떄 사용하는  파라미터의 키 값

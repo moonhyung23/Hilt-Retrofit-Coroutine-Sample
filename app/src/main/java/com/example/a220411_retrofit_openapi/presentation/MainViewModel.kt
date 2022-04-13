@@ -24,26 +24,24 @@ class MainViewModel @Inject internal constructor(private val repository: MainRep
         loadBoxOfficeData()
     }
 
-
     private fun loadBoxOfficeData() {
         //코루틴으로 Retrofit 통신을 진행
         viewModelScope.launch {
-
             //Retrofit으로 데이터 요청
-            val response = repository.boxOfficeApi("20200319")
+            val result = repository.boxOfficeApi("20200319")
+            List_DailyBoxOffice = result.data?.boxOfficeResult?.List_dailyBoxOffice!!
+            Live_BoxOffice.value = List_DailyBoxOffice
 
-            when (response.isSuccessful) {
-                //응답 성공
-                true -> {
-                    List_DailyBoxOffice = response.body()?.boxOfficeResult?.List_dailyBoxOffice!!
-                    Live_BoxOffice.value = List_DailyBoxOffice
-                    Timber.e("TEST -> ${response.body()}")
-                }
-                //응답 실패
-                else -> {
-                    Timber.e("TEST -> ${response.body()}")
-                }
-            }
+            /* when (response.isSuccessful) {
+                 //응답 성공
+                 true -> {
+
+                 }
+                 //응답 실패
+                 else -> {
+                     Timber.e("TEST -> ${response.body()}")
+                 }
+             }*/
         }
     }
 
